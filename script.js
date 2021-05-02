@@ -10,21 +10,19 @@ img.addEventListener('load', () => {
   // - Fill the whole Canvas with black first to add borders on non-square images, then draw on top
   // - Clear the form when a new image is selected
   // - If you draw the image to canvas here, it will update as soon as a new image is selected
-  alert("Executes LoadEventListener");
 
   var canvas = document.getElementById('user-image');
   var ctx = canvas.getContext('2d');
 
   ctx.clearRect(0, 0, canvas.width, canvas.height);
-  // ctx.fillStyle = 'rgba(0, 0, 0, 1)';
-  // ctx.fillRect(0, 0, canvas.width, canvas.height);
+  ctx.fillStyle = 'rgba(0, 0, 0, 1)';
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-  // var buttons = document.getElementById('button');
-  // buttons.setAttribute('disabled', true);
-  // var buttonGroup = document.getElementById('button-group');
-  // buttonGroup.setAttribute('disabled', true);
+  document.querySelector('button[type=submit]').disabled = false;
+  document.querySelector('button[type=reset]').disabled = true;
+  document.querySelector('button[type=button]').disabled = true;
 
-  var dim = getDimmensions(canvas.width, canvas.height, img.height, img.width);
+  var dim = getDimmensions(canvas.width, canvas.height, img.width, img.height);
   ctx.drawImage(img, dim['startX'], dim['startY'], dim['width'], dim['height']);
 });
 
