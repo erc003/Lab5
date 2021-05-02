@@ -1,5 +1,6 @@
 // script.js
 
+// 1st Feature
 const img = new Image(); // used to load image from <input> and draw to canvas
 
 // Fires whenever the img object loads a new image (such as with img.src =)
@@ -26,7 +27,7 @@ img.addEventListener('load', () => {
   ctx.drawImage(img, dim['startX'], dim['startY'], dim['width'], dim['height']);
 });
 
-
+// 2nd Feature
 const imgInput = document.getElementById('image-input');
 
 imgInput.addEventListener('change', () => {
@@ -34,7 +35,7 @@ imgInput.addEventListener('change', () => {
   img.alt = imgInput.files[0].name;
 });
 
-
+// 3rd Feature
 const form = document.getElementById('generate-meme');
 
 form.addEventListener('submit', () => {
@@ -64,7 +65,9 @@ form.addEventListener('submit', () => {
   document.querySelector('button[type=button]').disabled = false;
 });
 
+// 4th Feature
 const clear = document.querySelector('button[type=reset]');
+
 clear.addEventListener('click', () => {
   var canvas = document.getElementById('user-image');
   var ctx = canvas.getContext('2d');
@@ -75,6 +78,52 @@ clear.addEventListener('click', () => {
   document.querySelector('button[type=reset]').disabled = true;
   document.querySelector('button[type=button]').disabled = true;
 });
+
+// 5th Feature
+document.querySelector('select').disabled = false;
+const tts = document.querySelector('button[type=button]');
+
+var voiceList = document.getElementById('voice-selection');
+var synth = window.speechSynthesis;
+var voices = [];
+
+PopulateVoices();
+if(speechSynthesis !== undefined){
+  speechSynthesis.onvoiceschanged = PopulateVoices;
+}
+
+tts.addEventListener('click', () => {
+
+  var topText = document.getElementById('text-top').value;
+  var botText = document.getElementById('text-bottom').value;
+
+  var toSpeak = new SpeechSynthesisUtterance(topText + " " + botText);
+  var selectedVoiceName = voiceList.selectedOptions[0].getAttribute('data-name');
+  voices.forEach((voice) => {
+      if(voice.name === selectedVoiceName) {
+          toSpeak.voice = voice;
+      }
+  });
+  synth.speak(toSpeak);
+});
+
+function PopulateVoices() {
+  voices = synth.getVoices();
+  var selectedIndex = voiceList.selectedIndex < 0 ? 0 : voiceList.selectedIndex;
+  voiceList.innerHTML = '';
+  voices.forEach((voice) => {
+      var listItem = document.createElement('option');
+      listItem.textContent = voice.name;
+      listItem.setAttribute('data-lang', voice.lang);
+      listItem.setAttribute('data-name', voice.name);
+      voiceList.appendChild(listItem);
+  });
+
+  voiceList.selectedIndex = selectedIndex;
+}
+
+// 6th Feature
+
 
 /**
  * Takes in the dimensions of the canvas and the new image, then calculates the new
