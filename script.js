@@ -34,6 +34,36 @@ imgInput.addEventListener('change', () => {
   img.alt = imgInput.files[0].name;
 });
 
+
+const form = document.getElementById('generate-meme');
+
+form.addEventListener('submit', () => {
+  var topText = document.getElementById('text-top').value;
+  var botText = document.getElementById('text-bottom').value;
+
+  event.preventDefault();
+
+  var canvas = document.getElementById('user-image');
+  var ctx = canvas.getContext('2d');
+  
+  ctx.font = 'bold 40px Arial';
+  ctx.fillStyle = 'white';
+  ctx.strokeStyle = 'black';
+  ctx.textAlign = 'center';
+  
+  ctx.textBaseline = 'top';
+  ctx.fillText(topText, canvas.width / 2, 5);
+  ctx.strokeText(topText, canvas.width / 2, 5);
+
+  ctx.textBaseline = 'bottom';
+  ctx.fillText(botText, canvas.width / 2, canvas.height - 5);
+  ctx.strokeText(botText, canvas.width / 2, canvas.height - 5);
+
+  document.querySelector('button[type=submit]').disabled = true;
+  document.querySelector('button[type=reset]').disabled = false;
+  document.querySelector('button[type=button]').disabled = false;
+});
+
 /**
  * Takes in the dimensions of the canvas and the new image, then calculates the new
  * dimensions of the image so that it fits perfectly into the Canvas and maintains aspect ratio
