@@ -64,6 +64,18 @@ form.addEventListener('submit', () => {
   document.querySelector('button[type=button]').disabled = false;
 });
 
+const clear = document.querySelector('button[type=reset]');
+clear.addEventListener('click', () => {
+  var canvas = document.getElementById('user-image');
+  var ctx = canvas.getContext('2d');
+
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+  document.querySelector('button[type=submit]').disabled = false;
+  document.querySelector('button[type=reset]').disabled = true;
+  document.querySelector('button[type=button]').disabled = true;
+});
+
 /**
  * Takes in the dimensions of the canvas and the new image, then calculates the new
  * dimensions of the image so that it fits perfectly into the Canvas and maintains aspect ratio
