@@ -79,7 +79,9 @@ clear.addEventListener('click', () => {
   document.querySelector('button[type=button]').disabled = true;
 });
 
-// 5th Feature
+// 5th Feature with changes in volume
+// Referenced the following code:
+// https://github.com/Nitij/JavaScriptSpeechSynthesis/blob/master/index.html 
 document.querySelector('select').disabled = false;
 const tts = document.querySelector('button[type=button]');
 
@@ -104,6 +106,8 @@ tts.addEventListener('click', () => {
           toSpeak.voice = voice;
       }
   });
+  var vol = document.querySelector('input[type=range]');
+  toSpeak.volume = vol.value / 100;
   synth.speak(toSpeak);
 });
 
@@ -123,7 +127,22 @@ function PopulateVoices() {
 }
 
 // 6th Feature
+const volume = document.querySelector('input[type=range]');
 
+volume.addEventListener('input', () => {
+  var vol = volume.value;
+  var icon = document.querySelector('img');
+
+  if(vol == 0) {
+    icon.src = 'icons/volume-level-0.svg';
+  } else if(vol >= 1 && vol <= 33) {
+    icon.src = 'icons/volume-level-1.svg';
+  } else if(vol >= 34 && vol <= 66) {
+    icon.src = 'icons/volume-level-2.svg';
+  } else {
+    icon.src = 'icons/volume-level-3.svg';
+  }
+});
 
 /**
  * Takes in the dimensions of the canvas and the new image, then calculates the new
